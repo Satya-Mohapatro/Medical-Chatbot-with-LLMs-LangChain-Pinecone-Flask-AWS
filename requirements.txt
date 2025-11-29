@@ -1,20 +1,19 @@
-# Framework
 flask==3.1.1
 python-dotenv==1.1.0
 
-# RAG + Embeddings
+# Embeddings / RAG
 sentence-transformers==2.7.0
 pypdf==5.6.1
 huggingface-hub==0.24.0
 tiktoken==0.7.0
 
-# LangChain (STABLE + COMPATIBLE WITH GEMINI)
+# LangChain (compatible with Gemini)
 langchain==0.1.20
 langchain-core==0.1.52
-langchain-community==0.0.17
+langchain-community==0.0.40
 langchain-pinecone==0.0.3
 
-# Google Gemini
+# Gemini (Google GenAI)
 google-generativeai==0.7.2
 langchain-google-genai==1.0.4
 
