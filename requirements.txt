@@ -11,6 +11,6 @@ pypdf==5.6.1
 python-dotenv==1.1.0
 
 pinecone-client==3.2.2
-google-generativeai==0.7.2
+langchain-google-genai==1.0.4
 
 -e .
