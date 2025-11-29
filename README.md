@@ -5,8 +5,6 @@ This chatbot uses **RAG (Retrieval-Augmented Generation)** to provide accurate, 
 It retrieves medical knowledge from Pinecone and generates final answers using **Gemini 2.5 Pro**.
 
 ---
-!/screenshots/chatbot-ui-1.png
-
 #  Features  
 -  **LLM-powered medical chatbot** using Google Gemini  
 -  **RAG pipeline** with Pinecone similarity search  
