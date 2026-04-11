@@ -2,7 +2,7 @@
 
 A production-ready medical chatbot built using Large Language Models (LLMs), LangChain, Pinecone, and Flask. This system leverages Retrieval-Augmented Generation (RAG) to dynamically retrieve critical medical knowledge and generate highly accurate, contextual answers. The application features a modern premium Glassmorphism UI and is containerized with Docker, making it completely deployable on AWS or any cloud hosting service.
 
-## 🏗️ System Architecture
+##  System Architecture
 
 The application is built on two primary workflows:
 1. **Offline Ingestion Pipeline**: Reads your custom medical PDFs, generates semantic embeddings locally, and uploads them to a vector database.
@@ -28,7 +28,7 @@ graph TD
     end
 ```
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 * **Backend:** Flask, Python 3.10
 * **Frontend:** HTML5, CSS3 (Custom Glassmorphism styling), JavaScript, jQuery, marked.js
@@ -38,7 +38,7 @@ graph TD
 * **Embedding Model:** HuggingFace `sentence-transformers/all-MiniLM-L6-v2`
 * **Containerization:** Docker
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 ├── .env                  # Environment variables (API Keys)
@@ -56,7 +56,7 @@ graph TD
     └── chat.html         # Frontend interface
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 * Python 3.10+
@@ -96,7 +96,7 @@ graph TD
    ```
    Open your browser and navigate to `http://localhost:8080/`.
 
-## 📦 Docker Deployment
+##  Docker Deployment
 
 This application includes a production-ready `Dockerfile`. You can instantly deploy this containerized app to any container solution (like Render, Hugging Face Spaces, AWS ECS, or EC2).
 
