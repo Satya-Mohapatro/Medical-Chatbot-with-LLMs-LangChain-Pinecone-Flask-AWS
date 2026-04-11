@@ -13,7 +13,16 @@ app_port: 7860
 
 A production-ready medical chatbot built using Large Language Models (LLMs), LangChain, Pinecone, and Flask. This system leverages Retrieval-Augmented Generation (RAG) to dynamically retrieve critical medical knowledge and generate highly accurate, contextual answers. The application features a modern premium Glassmorphism UI and is containerized with Docker, making it completely deployable on AWS or any cloud hosting service.
 
-##  System Architecture
+## 🚀 Live Demo
+
+[![🤗 Hugging Face Spaces](https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-blue)](https://satyaa18-medical-chatbot.hf.space)
+
+> 🔗 **[Click here to try the live demo →](https://satyaa18-medical-chatbot.hf.space)**
+
+---
+
+## System Architecture
+
 
 The application is built on two primary workflows:
 1. **Offline Ingestion Pipeline**: Reads your custom medical PDFs, generates semantic embeddings locally, and uploads them to a vector database.
