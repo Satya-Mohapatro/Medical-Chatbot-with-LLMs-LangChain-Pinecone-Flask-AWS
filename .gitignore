@@ -1,0 +1,7 @@
+.env
+medibot/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.DS_Store
