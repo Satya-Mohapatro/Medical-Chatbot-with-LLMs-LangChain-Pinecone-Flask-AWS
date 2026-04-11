@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Medical Assistant</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}"/>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Header -->
+        <header class="chat-header">
+            <div class="header-info">
+                <div class="avatar-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/387/387569.png" alt="Bot Avatar" class="avatar">
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="title-container">
+                    <h1>Medical Assistant</h1>
+                    <p>Powered by AI</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+            </div>
+        </header>
+
+        <!-- Chat Area -->
+        <main class="chat-body" id="chatbox">
+            <!-- Initial Greeting -->
+            <div class="message bot-message fade-in">
+                <div class="avatar-wrapper">
+                    <img src="https://cdn-icons-png.flaticon.com/512/387/387569.png" alt="Bot" class="avatar-sm">
+                </div>
+                <div class="message-content">
+                    Hello! I'm your AI medical assistant. How can I help you today?
+                    <span class="timestamp">Now</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Input Area -->
+        <footer class="chat-footer">
+            <form id="chatForm" class="input-form">
+                <div class="input-wrapper">
+                    <input type="text" id="userInput" placeholder="Ask about symptoms, medications, or general health..." autocomplete="off" required autofocus/>
+                    <button type="submit" id="sendBtn" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const chatbox = $("#chatbox");
+            const chatForm = $("#chatForm");
+            const userInput = $("#userInput");
+
+            // Scroll to bottom helper
+            function scrollToBottom() {
+                chatbox.scrollTop(chatbox[0].scrollHeight);
+            }
+
+            // Get current time
+            function getTime() {
+                const now = new Date();
+                return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+
+            // Handle submission
+            chatForm.on("submit", function(e) {
+                e.preventDefault();
+                const text = userInput.val().trim();
+                if (!text) return;
+
+                // 1. Render User Message
+                const userHtml = `
+                    <div class="message user-message slide-in-right">
+                        <div class="message-content">
+                            ${text}
+                            <span class="timestamp">${getTime()}</span>
+                        </div>
+                    </div>
+                `;
+                chatbox.append(userHtml);
+                userInput.val("");
+                scrollToBottom();
+
+                // 2. Show Typing Indicator
+                const typingId = "typing-" + Date.now();
+                const typingHtml = `
+                    <div class="message bot-message fade-in" id="${typingId}">
+                        <div class="avatar-wrapper">
+                            <img src="https://cdn-icons-png.flaticon.com/512/387/387569.png" alt="Bot" class="avatar-sm">
+                        </div>
+                        <div class="message-content typing-indicator">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                `;
+                chatbox.append(typingHtml);
+                scrollToBottom();
+
+                // 3. Send Ajax request
+                $.ajax({
+                    data: { msg: text },
+                    type: "POST",
+                    url: "/get",
+                }).done(function(data) {
+                    // Remove typing indicator
+                    $("#" + typingId).remove();
+                    
+                    // Parse markdown from response
+                    const parsedHtmlText = marked.parse(data);
+
+                    // Render Bot Message
+                    const botHtml = `
+                        <div class="message bot-message slide-in-left">
+                            <div class="avatar-wrapper">
+                                <img src="https://cdn-icons-png.flaticon.com/512/387/387569.png" alt="Bot" class="avatar-sm">
+                            </div>
+                            <div class="message-content markdown-body">
+                                ${parsedHtmlText}
+                                <span class="timestamp">${getTime()}</span>
+                            </div>
+                        </div>
+                    `;
+                    chatbox.append(botHtml);
+                    scrollToBottom();
+                }).fail(function() {
+                    $("#" + typingId).remove();
+                    // Error handle
+                    const botHtml = `
+                        <div class="message bot-message slide-in-left">
+                            <div class="avatar-wrapper">
+                                <img src="https://cdn-icons-png.flaticon.com/512/387/387569.png" alt="Bot" class="avatar-sm">
+                            </div>
+                            <div class="message-content text-danger">
+                                Sorry, I am having trouble connecting to the server right now.
+                                <span class="timestamp">${getTime()}</span>
+                            </div>
+                        </div>
+                    `;
+                    chatbox.append(botHtml);
+                    scrollToBottom();
+                });
+            });
+
+            // Enter key to submit
+            userInput.on("keypress", function(e) {
+                if(e.which === 13 && !e.shiftKey) {
+                    e.preventDefault();
+                    chatForm.submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
