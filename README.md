@@ -1,14 +1,3 @@
----
-title: Medical Chatbot
-emoji: 🏥
-colorFrom: blue
-colorTo: green
-sdk: docker
-pinned: false
-license: mit
-app_port: 7860
----
-
 # AI Medical Assistant: RAG-Powered Chatbot
 
 A production-ready medical chatbot built using Large Language Models (LLMs), LangChain, Pinecone, and Flask. This system leverages Retrieval-Augmented Generation (RAG) to dynamically retrieve critical medical knowledge and generate highly accurate, contextual answers. The application features a modern premium Glassmorphism UI and is containerized with Docker, making it completely deployable on AWS or any cloud hosting service.
