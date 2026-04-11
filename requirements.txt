@@ -5,9 +5,11 @@ langchain-pinecone==0.2.8
 
 langchain-google-genai==2.0.1
 
-flask
+flask==3.1.1
 sentence-transformers==2.7.0
 pypdf==5.6.1
 python-dotenv==1.1.0
+
+torch==2.2.2+cpu --extra-index-url https://download.pytorch.org/whl/cpu
 
 -e .
